@@ -40,16 +40,34 @@ class App extends Component {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-    
+
     return array;
   }
 
+  // Updates the time in the state each second
   updateTimer = () => {
-    // Update the time in the state
     const newTime = this.state.time + 1;
     this.setState({
       time: newTime
     });
+  }
+
+  // updates the star rating in score Panel
+  updateStarRating() {
+    const { numberOfMoves, numberOfStars } = this.state;
+    if(numberOfMoves < 12) {
+      this.setState({
+        numberOfStars: 3
+      });
+    } else if (numberOfMoves >= 12 && numberOfMoves < 18) {
+      this.setState({
+        numberOfStars: 2
+      });
+    } else {
+      this.setState({
+        numberOfStars: 1
+      });
+    }
   }
 
   render() {
@@ -57,7 +75,7 @@ class App extends Component {
       <div className="container">
         <div id="game-play-area">
             <Header />
-            <ScorePanel />
+            <ScorePanel time={this.state.time} stars={this.state.numberOfStars} moves={this.state.numberOfMoves} />
             <CardDeck />
         </div>
     </div>

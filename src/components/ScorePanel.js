@@ -1,23 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const ScorePanel = () => {
-  return (
-    <section className="score-panel">
-        <ul className="stars">
-            <li><i className="fa fa-star"></i></li>
-            <li><i className="fa fa-star"></i></li>
-            <li><i className="fa fa-star"></i></li>
-        </ul>
+class ScorePanel extends Component {
+  renderStarRating(stars) {
+    if(stars == 3) {
+      return (
+        <div><li><i className="fa fa-star"></i></li><li><i className="fa fa-star"></i></li><li><i className="fa fa-star"></i></li></div>
+      );
+    } else if (stars == 2) {
+      return (
+        <div><li><i className="fa fa-star"></i></li><li><i className="fa fa-star"></i></li></div>
+      )
+    } else {
+      return (
+        <div><li><i className="fa fa-star"></i></li></div>
+      )
+    }
+  }
 
-        <span id="moves">0</span> Moves
+  render() {
+    const { stars, time, moves} = this.props;
 
-        <div id="timer"></div>
+    return (
+      <section className="score-panel">
+          <ul className="stars">
+              {this.renderStarRating(stars)}
+          </ul>
 
-        <div className="restart">
-            <i className="fa fa-repeat"></i>
-        </div>
-    </section>
-  );
+          <span id="moves">{moves}</span> Moves
+
+          <div id="timer"><strong>Time:</strong> {time} seconds</div>
+
+          <div className="restart">
+              <i className="fa fa-repeat"></i>
+          </div>
+      </section>
+    );
+  }
 }
 
 export default ScorePanel;
