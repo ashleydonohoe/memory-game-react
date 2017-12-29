@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 class ScorePanel extends Component {
   renderStarRating(stars) {
-    if(stars == 3) {
+    if(stars === 3) {
       return (
         <div><li><i className="fa fa-star"></i></li><li><i className="fa fa-star"></i></li><li><i className="fa fa-star"></i></li></div>
       );
-    } else if (stars == 2) {
+    } else if (stars === 2) {
       return (
         <div><li><i className="fa fa-star"></i></li><li><i className="fa fa-star"></i></li></div>
       )

@@ -21,10 +21,12 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const shuffledCards = this.shuffleCards(CardData);
     // Start the timer
     // Used as reference for clearing and setting timer: https://www.w3schools.com/js/js_timing.asp
     this.setState({
-      timer: setInterval(this.updateTimer, 1000)
+      timer: setInterval(this.updateTimer, 1000),
+      shuffledCards
     });
   }
 
@@ -76,7 +78,7 @@ class App extends Component {
         <div id="game-play-area">
             <Header />
             <ScorePanel time={this.state.time} stars={this.state.numberOfStars} moves={this.state.numberOfMoves} />
-            <CardDeck />
+            <CardDeck shuffledCards={this.state.shuffledCards} />
         </div>
     </div>
     );
