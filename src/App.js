@@ -18,6 +18,8 @@ class App extends Component {
       time: 0,
       timer: null
     };
+
+    this.updateCardState = this.updateCardState.bind(this);
   }
 
   componentDidMount() {
@@ -109,13 +111,22 @@ class App extends Component {
         }, this.checkForGameEnd);
       } else {
         // They are not a match, so don't show/lock cards
-
+        console.log("they are not a match");
+        setTimeout(() => {
+          this.updateCardState(openCards, false);
+        }, 500);
       }
+
+      // Clear open cards pair
+      this.setState({
+        openCards: []
+      });
     }
+
   }
 
   // Update card state
-  updateCardState(cards, flag) {
+  updateCardState = (cards, flag) => {
     let newShuffledCardData = this.state.shuffledCards;
     // Find the card in the state array
     const newCardData = this.state.shuffledCards.forEach((oldCard, index) => {
@@ -132,14 +143,13 @@ class App extends Component {
     // Update state of cardData and opencards
     this.setState({
       shuffledCards: newShuffledCardData
-    });
+    }, this.checkForMatch);
   }
 
   // Update the card classes and status
   updateCardData(card) {
     const cards = [card];
     this.updateCardState(cards, true);
-    this.checkForMatch();
   }
 
   // Sets up interaction for cards
