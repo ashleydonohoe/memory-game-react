@@ -23,13 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const shuffledCards = this.shuffleCards(CardData);
-    // Start the timer
-    // Used as reference for clearing and setting timer: https://www.w3schools.com/js/js_timing.asp
-    this.setState({
-      timer: setInterval(this.updateTimer, 1000),
-      shuffledCards
-    });
+    this.loadGame();
   }
 
   componentWillUnmount() {
@@ -38,6 +32,22 @@ class App extends Component {
     });
   }
 
+  // Load cards and timer
+  loadGame() {
+    const shuffledCards = this.shuffleCards(CardData);
+
+    // Start the timer and reset state
+    // Used as reference for clearing and setting timer: https://www.w3schools.com/js/js_timing.asp
+    this.setState({
+      timer: setInterval(this.updateTimer, 1000),
+      shuffledCards,
+      openCards: [],
+      numberOfLockedCards: 0,
+      time: 0,
+      numberOfMoves: 0,
+      numberOfStars: 3
+    });
+  }
 
   // Shuffle function from http://stackoverflow.com/a/2450976
   shuffleCards = (array) => {
@@ -93,8 +103,6 @@ class App extends Component {
     const { openCards, numberOfMoves, numberOfLockedCards } = this.state;
 
     if(openCards.length === 2) {
-      console.log("Check for match!");
-
       // Increase # of moves
       this.setState({
         numberOfMoves: numberOfMoves + 1
@@ -168,17 +176,14 @@ class App extends Component {
     }
   }
 
+
   // Resets game state
   resetGame = () => {
+    // Clear timer and load new game
     this.setState({
-      shuffledCards: [],
-      openCards: [],
-      numberOfLockedCards: 0,
-      timer: clearInterval(this.state.timer),
-      time: 0,
-      numberOfMoves: 0,
-      numberOfStars: 3
-    });
+      timer: clearInterval(this.state.timer)
+    }, this.loadGame);
+
   }
 
   render() {
