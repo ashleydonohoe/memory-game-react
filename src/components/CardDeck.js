@@ -5,12 +5,20 @@ class CardDeck extends Component {
   createCards = () => {
     const cards = this.props.shuffledCards;
 
-    console.log(cards);
-
     return cards.map((card, index) => {
-      const faClass = "fa " + card;
-       return (
-         <Card setUpCardInteraction={this.props.setUpCardInteraction} key={index} id={index} classList={faClass} />
+      // Generate class list
+      let classList = "fa " + card.text;
+
+      if(card.open && card.shown) {
+        classList += " open show";
+      } else if(card.open) {
+        classList += " open";
+      } else if (card.shown) {
+        classList += " show";
+      }
+
+      return (
+         <Card setUpCardInteraction={this.props.setUpCardInteraction} key={index} id={index} classList={classList} card={card} />
        );
      });
   }
