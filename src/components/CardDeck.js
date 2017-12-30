@@ -5,6 +5,8 @@ class CardDeck extends Component {
   createCards = () => {
     const cards = this.props.shuffledCards;
 
+    console.log(cards);
+
     return cards.map((card, index) => {
       const faClass = "fa " + card;
        return (

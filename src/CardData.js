@@ -1,7 +1,84 @@
 const CardData = [
-  'fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-anchor', 'fa-anchor',
-        'fa-bolt', 'fa-bolt', 'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle', 'fa-bicycle', 'fa-bomb',
-        'fa-bomb'
+  {
+    text: 'fa-diamond',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-diamond',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-paper-plane-o',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-paper-plane-o',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-anchor',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-anchor',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-bolt',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-bolt',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-cube',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-cube',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-leaf',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-leaf',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-bicycle',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-bicycle',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-bomb',
+    open: false,
+    shown: false
+  },
+  {
+    text: 'fa-bomb',
+    open: false,
+    shown: false
+  }
 ];
 
 export default CardData;
