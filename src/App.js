@@ -78,32 +78,68 @@ class App extends Component {
     }
   }
 
+  // Check if game is over
+  checkForGameEnd() {
+    const { numberOfLockedCards, shuffledCards } = this.state;
+    if(numberOfLockedCards === shuffledCards.length) {
+      this.resetGame();
+    }
+  }
+
   // Checks if cards match
   checkForMatch = () => {
+    const { openCards, numberOfMoves, numberOfLockedCards } = this.state;
 
+    if(openCards.length === 2) {
+      console.log("Check for match!");
+
+      // Increase # of moves
+      this.setState({
+        numberOfMoves: numberOfMoves + 1
+      });
+
+      // updateStarRating
+      this.updateStarRating();
+
+      // Check if both open cards have the same symbol
+      if(openCards[0].text === openCards[1].text) {
+        // Keep cards locked and update number of locked cards
+        this.setState({
+          numberOfLockedCards: numberOfLockedCards + 2
+        }, this.checkForGameEnd);
+      } else {
+        // They are not a match, so don't show/lock cards
+
+      }
+    }
   }
 
-  showOpenCards() {
-    console.log(this.state.openCards);
-  }
-
-  // Update the card classes and status
-  updateCardData(card) {
+  // Update card state
+  updateCardState(cards, flag) {
     let newShuffledCardData = this.state.shuffledCards;
     // Find the card in the state array
     const newCardData = this.state.shuffledCards.forEach((oldCard, index) => {
-      if(oldCard.id === card.id) {
-        let card = newShuffledCardData[index];
-        card.open = true;
-        card.shown = true;
-        newShuffledCardData[index] = card;
-      }
+      cards.forEach((card) => {
+        if(oldCard.id === card.id) {
+          let card = newShuffledCardData[index];
+          card.open = flag;
+          card.shown = flag;
+          newShuffledCardData[index] = card;
+        }
+      })
     });
 
     // Update state of cardData and opencards
     this.setState({
-      shuffledCards: newShuffledCardData,
-    }, this.checkForMatch);
+      shuffledCards: newShuffledCardData
+    });
+  }
+
+  // Update the card classes and status
+  updateCardData(card) {
+    const cards = [card];
+    this.updateCardState(cards, true);
+    this.checkForMatch();
   }
 
   // Sets up interaction for cards
@@ -112,23 +148,13 @@ class App extends Component {
 
     // If there are less than 2 open cards and the card selected is not open already
     if(openCards.length < 2 && !card.open) {
-      console.log("Card clicked");
 
       // Push card to open cards
-      const updatedOpenedCards = openCards.concat({
-        content: card.text, id: card.id
-      });
+      const updatedOpenedCards = openCards.concat(card);
 
       this.setState({
         openCards: updatedOpenedCards
       }, this.updateCardData(card));
-
-
-      //
-      // console.log(this.state.openCards);
-      //
-      // // If two cards open, check for match
-      // this.checkForMatch();
     }
   }
 
