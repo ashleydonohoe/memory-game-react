@@ -7,18 +7,19 @@ class CardDeck extends Component {
 
     return cards.map((card, index) => {
       // Generate class list
-      let classList = "fa " + card.text;
+      const faClass = `fa ${card.text}`;
+      let cardClassList = "card";
 
       if(card.open && card.shown) {
-        classList += " open show";
+        cardClassList += " open show";
       } else if(card.open) {
-        classList += " open";
+        cardClassList += " open";
       } else if (card.shown) {
-        classList += " show";
+        cardClassList += " show";
       }
 
       return (
-         <Card setUpCardInteraction={this.props.setUpCardInteraction} key={index} id={index} classList={classList} card={card} />
+         <Card faClassList={faClass} setUpCardInteraction={this.props.setUpCardInteraction} key={index} id={index} cardClassList={cardClassList} card={card} />
        );
      });
   }

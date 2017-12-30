@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Card = ({index, card, classList, setUpCardInteraction}) => {
+const Card = ({index, card, classList, setUpCardInteraction, cardClassList, faClassList}) => {
   return (
-    <li onClick={setUpCardInteraction(index, card)} key={index} id={index} className="card">{card.text}<i className={classList}></i></li>
+    <li onClick={e => setUpCardInteraction(card, e.target.id)} key={index} id={index} className={cardClassList}>{card.text}<i className={faClassList}></i></li>
   );
 }
 

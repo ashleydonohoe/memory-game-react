@@ -30,6 +30,12 @@ class App extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.setState({
+      timer: clearInterval(this.state.timer)
+    });
+  }
+
 
   // Shuffle function from http://stackoverflow.com/a/2450976
   shuffleCards = (array) => {
@@ -77,19 +83,53 @@ class App extends Component {
 
   }
 
+  showOpenCards() {
+    console.log(this.state.openCards);
+  }
+
+  // Update the card classes and status
+  updateCardData(card) {
+    let newShuffledCardData = this.state.shuffledCards;
+    // Find the card in the state array
+    const newCardData = this.state.shuffledCards.forEach((oldCard, index) => {
+      if(oldCard.id === card.id) {
+        let card = newShuffledCardData[index];
+        card.open = true;
+        card.shown = true;
+        newShuffledCardData[index] = card;
+      }
+    });
+
+    // Update state of cardData and opencards
+    this.setState({
+      shuffledCards: newShuffledCardData,
+    }, this.checkForMatch);
+  }
+
   // Sets up interaction for cards
-  setUpCardInteraction = (id, card) => {
-    const { openCards } = this.state;
-    // const { openCards}
-    // // If less than two cards open and the card clicked isn't already open, add the card to the array for open cards
-    // if(openCards.length < 2 && !gameCards[i].classList.contains('open')) {
-    //     gameCards[i].classList.add('show');
-    //     gameCards[i].classList.add('open');
-    //     openCards.push({content: gameCards[i].textContent, id: event.target.id});
-    //
-    //     // If two cards are open, check for match
-    //     this.checkForMatch();
-    // }
+  setUpCardInteraction = (card, id) => {
+    const { openCards} = this.state;
+
+    // If there are less than 2 open cards and the card selected is not open already
+    if(openCards.length < 2 && !card.open) {
+      console.log("Card clicked");
+
+      // Push card to open cards
+      const updatedOpenedCards = openCards.concat({
+        content: card.text, id: card.id
+      });
+
+      this.setState({
+        openCards: updatedOpenedCards
+      }, this.updateCardData(card));
+
+
+      //
+      // console.log(this.state.openCards);
+      //
+      // // If two cards open, check for match
+      // this.checkForMatch();
+    }
   }
 
   // Resets game state
