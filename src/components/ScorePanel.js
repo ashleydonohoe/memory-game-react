@@ -18,7 +18,7 @@ class ScorePanel extends Component {
   }
 
   render() {
-    const { stars, time, moves} = this.props;
+    const { stars, time, moves, onGameReset} = this.props;
 
     return (
       <section className="score-panel">
@@ -31,7 +31,7 @@ class ScorePanel extends Component {
           <div id="timer"><strong>Time:</strong> {time} seconds</div>
 
           <div className="restart">
-              <i className="fa fa-repeat"></i>
+              <i className="fa fa-repeat" onClick={onGameReset}></i>
           </div>
       </section>
     );

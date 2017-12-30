@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import Card from './Card';
 
 class CardDeck extends Component {
   createCards = () => {
     const cards = this.props.shuffledCards;
-    
+
     return cards.map((card, index) => {
       const faClass = "fa " + card;
        return (
-         <li id={index} className="card">{card}<i className={faClass}></i></li>
+         <Card setUpCardInteraction={this.props.setUpCardInteraction} key={index} id={index} classList={faClass} />
        );
      });
   }
