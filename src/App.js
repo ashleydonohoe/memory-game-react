@@ -5,6 +5,7 @@ import CardData from './CardData';
 import Header from './components/Header';
 import ScorePanel from './components/ScorePanel';
 import CardDeck from './components/CardDeck';
+import Modal from './components/Modal';
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class App extends Component {
       numberOfMoves: 0,
       numberOfStars: 3,
       time: 0,
-      timer: null
+      timer: null,
+      modalVisible: false
     };
 
     this.updateCardState = this.updateCardState.bind(this);
@@ -94,7 +96,11 @@ class App extends Component {
   checkForGameEnd() {
     const { numberOfLockedCards, shuffledCards } = this.state;
     if(numberOfLockedCards === shuffledCards.length) {
-      this.resetGame();
+      // Show modal and hide the main content
+      this.setState({
+        modalVisible: true,
+        timer: clearInterval(this.state.timer)
+      });
     }
   }
 
@@ -187,13 +193,17 @@ class App extends Component {
   }
 
   render() {
+    const containerClasses = this.state.modalVisible ? "container" : "container container-visible";
     return (
-      <div className="container">
-        <div id="game-play-area">
-            <Header />
-            <ScorePanel time={this.state.time} stars={this.state.numberOfStars} moves={this.state.numberOfMoves} onGameReset={this.resetGame} />
-            <CardDeck shuffledCards={this.state.shuffledCards} setUpCardInteraction={this.setUpCardInteraction.bind(this)} />
-        </div>
+      <div>
+        <Modal visible={this.state.modalVisible} />
+        <div className={containerClasses}>
+          <div id="game-play-area">
+              <Header />
+              <ScorePanel time={this.state.time} stars={this.state.numberOfStars} moves={this.state.numberOfMoves} onGameReset={this.resetGame} />
+              <CardDeck shuffledCards={this.state.shuffledCards} setUpCardInteraction={this.setUpCardInteraction.bind(this)} />
+          </div>
+      </div>
     </div>
     );
   }

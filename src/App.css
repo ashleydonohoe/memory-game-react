@@ -22,10 +22,14 @@ body {
 }
 
 .container {
-    display: flex;
+
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.container-visible {
+    display: flex;
 }
 
 h1 {
@@ -108,7 +112,7 @@ h1 {
     cursor: pointer;
 }
 
-#modal {
+.modal {
     display: none;
     text-align: center;
     padding: 10px;
