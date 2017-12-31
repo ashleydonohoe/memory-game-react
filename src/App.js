@@ -47,7 +47,8 @@ class App extends Component {
       numberOfLockedCards: 0,
       time: 0,
       numberOfMoves: 0,
-      numberOfStars: 3
+      numberOfStars: 3,
+      modalVisible: false
     });
   }
 
@@ -193,15 +194,16 @@ class App extends Component {
   }
 
   render() {
-    const containerClasses = this.state.modalVisible ? "container" : "container container-visible";
+    const { modalVisible, time, numberOfMoves, numberOfStars, shuffledCards } = this.state;
+    const containerClasses = modalVisible ?  "container container-invisible" : "container";
     return (
       <div>
-        <Modal visible={this.state.modalVisible} />
+        <Modal visible={modalVisible} time={time} stars={numberOfStars} moves={numberOfMoves} loadGame={this.loadGame}/>
         <div className={containerClasses}>
           <div id="game-play-area">
               <Header />
-              <ScorePanel time={this.state.time} stars={this.state.numberOfStars} moves={this.state.numberOfMoves} onGameReset={this.resetGame} />
-              <CardDeck shuffledCards={this.state.shuffledCards} setUpCardInteraction={this.setUpCardInteraction.bind(this)} />
+              <ScorePanel time={time} stars={numberOfStars} moves={numberOfMoves} onGameReset={this.resetGame} />
+              <CardDeck shuffledCards={shuffledCards} setUpCardInteraction={this.setUpCardInteraction.bind(this)} />
           </div>
       </div>
     </div>

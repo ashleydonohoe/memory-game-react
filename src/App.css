@@ -22,14 +22,14 @@ body {
 }
 
 .container {
-
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.container-visible {
-    display: flex;
+.container-invisible {
+    display: none;
 }
 
 h1 {
